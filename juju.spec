@@ -18,6 +18,7 @@ BuildArch:      noarch
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 BuildRequires:  python-devel
+Requires:       python-argparse
 Requires:       python-txaws
 Requires:       python-twisted
 Requires:       python-txzookeeper
