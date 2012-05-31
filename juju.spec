@@ -11,6 +11,9 @@ URL:            https://launchpad.net/juju
 # bzr export -r 531 juju-0.5-bzr531.tar.gz lp:juju
 Source0:        %{name}-%{version}-bzr531.tar.gz
 
+# CentOSCloudInit class
+Patch0:         juju-0.5-cloudinit.patch
+
 BuildArch:      noarch
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
@@ -33,6 +36,7 @@ protocol.
 
 %prep
 %setup -q -n %{name}-%{version}-bzr531
+%patch0 -p1
 
 
 %build

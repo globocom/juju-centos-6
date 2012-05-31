@@ -1,0 +1,92 @@
+diff -ur juju-0.5-bzr531.orig/juju/providers/common/cloudinit.py juju-0.5-bzr531/juju/providers/common/cloudinit.py
+--- juju-0.5-bzr531.orig/juju/providers/common/cloudinit.py	2012-05-31 15:42:17.480769486 -0300
++++ juju-0.5-bzr531/juju/providers/common/cloudinit.py	2012-05-31 15:55:13.342884919 -0300
+@@ -324,3 +324,32 @@
+             "machine-id": self._machine_id,
+             "juju-provider-type": self._provider_type,
+             "juju-zookeeper-hosts": self._join_zookeeper_hosts()}
++
++
++class CentOSCloudInit(CloudInit):
++
++    def _collect_packages(self):
++        packages = [
++            "bzr", "byobu", "tmux", "python-setuptools", "python-twisted",
++            "python-txaws", "python-zookeeper", "python-devel", "juju"]
++        if self._zookeeper:
++            packages.extend([
++                "zookeeper", "libzookeeper", "libzookeeper-devel"])
++        return packages
++
++    def render(self):
++        """Get content for a cloud-init file with appropriate specifications.
++
++        :rtype: str
++
++        :raises: :exc:`juju.errors.CloudInitError` if there isn't enough
++            information to create a useful cloud-init.
++        """
++        self._validate()
++        return format_cloud_init(
++            self._ssh_keys,
++            packages=self._collect_packages(),
++            repositories=self._collect_repositories(),
++            scripts=self._collect_scripts(),
++            data=self._collect_machine_data(),
++            modules=["ssh", "yum_packages", "runcmd"])
+diff -ur juju-0.5-bzr531.orig/juju/providers/common/launch.py juju-0.5-bzr531/juju/providers/common/launch.py
+--- juju-0.5-bzr531.orig/juju/providers/common/launch.py	2012-05-31 15:42:17.480769486 -0300
++++ juju-0.5-bzr531/juju/providers/common/launch.py	2012-05-31 15:56:21.078086863 -0300
+@@ -2,7 +2,7 @@
+ 
+ from juju.errors import ProviderError
+ 
+-from .cloudinit import CloudInit
++from .cloudinit import CentOSCloudInit
+ from .utils import get_user_authorized_keys
+ 
+ 
+@@ -91,7 +91,7 @@
+         :rtype: :class:`twisted.internet.defer.Deferred`
+         """
+         config = self._provider.config
+-        cloud_init = CloudInit()
++        cloud_init = CentOSCloudInit()
+         cloud_init.add_ssh_key(get_user_authorized_keys(config))
+         cloud_init.set_machine_id(machine_id)
+         cloud_init.set_zookeeper_machines(zookeepers)
+diff -ur juju-0.5-bzr531.orig/juju/providers/common/utils.py juju-0.5-bzr531/juju/providers/common/utils.py
+--- juju-0.5-bzr531.orig/juju/providers/common/utils.py	2012-05-31 15:42:17.480769486 -0300
++++ juju-0.5-bzr531/juju/providers/common/utils.py	2012-05-31 15:44:06.605014021 -0300
+@@ -85,7 +85,7 @@
+ 
+ 
+ def format_cloud_init(
+-    authorized_keys, packages=(), repositories=None, scripts=None, data=None):
++    authorized_keys, packages=(), repositories=None, scripts=None, data=None, modules=None, user="ubuntu"):
+     """Format a user-data cloud-init file.
+ 
+     This will enable package installation, and ssh access, and script
+@@ -117,8 +117,8 @@
+         structure.
+     """
+     cloud_config = {
+-        "apt-update": True,
+-        "apt-upgrade": True,
++        "apt-update": False,
++        "apt-upgrade": False,
+         "ssh_authorized_keys": authorized_keys,
+         "packages": [],
+         "output": {"all": "| tee -a /var/log/cloud-init-output.log"}}
+@@ -136,6 +136,11 @@
+     if scripts:
+         cloud_config["runcmd"] = scripts
+ 
++    if modules:
++        cloud_config["modules"] = modules
++
++    cloud_config["user"] = user
++
+     output = safe_dump(cloud_config)
+     output = "#cloud-config\n%s" % (output)
+     return output
