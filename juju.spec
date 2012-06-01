@@ -2,7 +2,7 @@
 
 Name:           juju
 Version:        0.5
-Release:        1.bzr531%{?dist}
+Release:        2.bzr531%{?dist}
 Summary:        next generation service orchestration system
 
 Group:          System Environment/Orchestration
@@ -65,5 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jun 01 2012 Francisco Souza <f@souza.cc> - 0.5-2.bzr531
+- Fix requirements (added python-argparse)
 * Thu May 31 2012 Francisco Souza <f@souza.cc> - 0.5-1.bzr531
 - Initial packaging
