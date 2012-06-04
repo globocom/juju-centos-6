@@ -2,7 +2,7 @@
 
 Name:           juju
 Version:        0.5
-Release:        2.bzr531%{?dist}
+Release:        3.bzr531%{?dist}
 Summary:        next generation service orchestration system
 
 Group:          System Environment/Orchestration
@@ -47,6 +47,7 @@ protocol.
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O2 --skip-build --root $RPM_BUILD_ROOT
+install -p -D -m 755 misc/bash_completion.d/juju %{buildroot}/etc/bash_completion.d/juju
 
 
 %clean
@@ -62,9 +63,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*-port
 %{_bindir}/unit-get
 %{_bindir}/config-get
+/etc/bash_completion.d/juju
 
 
 %changelog
+* Mon Jun 04 2012 Francisco Souza <f@souza.cc> - 0.5-3.bzr531
+- Added bash completion
 * Fri Jun 01 2012 Francisco Souza <f@souza.cc> - 0.5-2.bzr531
 - Fix requirements (added python-argparse)
 * Thu May 31 2012 Francisco Souza <f@souza.cc> - 0.5-1.bzr531
