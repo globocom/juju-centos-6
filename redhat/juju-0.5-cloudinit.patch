@@ -63,7 +63,7 @@ diff -ur juju-0.5-bzr531.orig/juju/providers/common/utils.py juju-0.5-bzr531/juj
  
  def format_cloud_init(
 -    authorized_keys, packages=(), repositories=None, scripts=None, data=None):
-+    authorized_keys, packages=(), repositories=None, scripts=None, data=None, modules=None, user="ubuntu"):
++    authorized_keys, packages=(), repositories=None, scripts=None, data=None, modules=None):
      """Format a user-data cloud-init file.
  
      This will enable package installation, and ssh access, and script
@@ -84,8 +84,6 @@ diff -ur juju-0.5-bzr531.orig/juju/providers/common/utils.py juju-0.5-bzr531/juj
  
 +    if modules:
 +        cloud_config["modules"] = modules
-+
-+    cloud_config["user"] = user
 +
      output = safe_dump(cloud_config)
      output = "#cloud-config\n%s" % (output)
