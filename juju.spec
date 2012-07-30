@@ -2,14 +2,14 @@
 
 Name:           juju
 Version:        0.5
-Release:        3.bzr531%{?dist}
+Release:        4.bzr561%{?dist}
 Summary:        next generation service orchestration system
 
 Group:          System Environment/Orchestration
 License:        GNU Affero GPL v3
 URL:            https://launchpad.net/juju
-# bzr export -r 531 juju-0.5-bzr531.tar.gz lp:juju
-Source0:        %{name}-%{version}-bzr531.tar.gz
+# bzr export -r 561 juju-0.5-bzr561.tar.gz lp:juju
+Source0:        %{name}-%{version}-bzr561.tar.gz
 
 # CentOSCloudInit class
 Patch0:         juju-0.5-cloudinit.patch
@@ -67,6 +67,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 30 2012 Francisco Souza <f@souza.cc> - 0.5-4.bzr561
+- Updated juju package to revision 561
 * Mon Jun 04 2012 Francisco Souza <f@souza.cc> - 0.5-3.bzr531
 - Added bash completion
 * Fri Jun 01 2012 Francisco Souza <f@souza.cc> - 0.5-2.bzr531
