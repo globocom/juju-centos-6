@@ -78,7 +78,7 @@ diff -ur juju-0.5-bzr531.orig/juju/providers/common/utils.py juju-0.5-bzr531/juj
          "ssh_authorized_keys": authorized_keys,
          "packages": [],
          "output": {"all": "| tee -a /var/log/cloud-init-output.log"}}
-@@ -136,6 +136,11 @@
+@@ -136,6 +136,9 @@
      if scripts:
          cloud_config["runcmd"] = scripts
  
