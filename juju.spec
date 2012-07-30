@@ -36,7 +36,7 @@ services coordinate their communication and configuration through a simple
 protocol.
 
 %prep
-%setup -q -n %{name}-%{version}-bzr531
+%setup -q -n %{name}-%{version}-bzr561
 %patch0 -p1
 
 
