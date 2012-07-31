@@ -2,7 +2,7 @@
 
 Name:           juju
 Version:        0.5
-Release:        4.bzr561%{?dist}
+Release:        5.bzr561%{?dist}
 Summary:        next generation service orchestration system
 
 Group:          System Environment/Orchestration
