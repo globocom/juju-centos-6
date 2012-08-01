@@ -2,7 +2,7 @@
 
 Name:           juju
 Version:        0.5
-Release:        6.bzr561%{?dist}
+Release:        7.bzr561%{?dist}
 Summary:        next generation service orchestration system
 
 Group:          System Environment/Orchestration
@@ -69,6 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 01 2012 Andrews Medina <andrewsmedina@gmail.com> - 0.5-7.bzr561
+- Using public dns for zookeepr host
 * Mon Aug 01 2012 Andrews Medina <andrewsmedina@gmail.com> - 0.5-6.bzr561
 - Using public instead private dns
 * Mon Jul 31 2012 Andrews Medina <andrewsmedina@gmail.com> - 0.5-5.bzr561
