@@ -1,0 +1,13 @@
+=== modified file 'juju/providers/common/cloudinit.py'
+--- juju/providers/common/cloudinit.py	2012-05-29 15:23:08 +0000
++++ juju/providers/common/cloudinit.py	2012-08-01 20:22:15 +0000
+@@ -240,7 +240,7 @@
+         You don't have to set this, so long as the machine you are starting is
+         itself a zookeeper instance.
+         """
+-        self._zookeeper_hosts = [m.private_dns_name for m in machines]
++        self._zookeeper_hosts = [m.dns_name for m in machines]
+ 
+     def set_zookeeper_secret(self, secret):
+         """Specify the admin password for zookeepeer.
+

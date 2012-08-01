@@ -13,7 +13,7 @@ Source0:        %{name}-%{version}-bzr561.tar.gz
 
 # CentOSCloudInit class
 Patch0:         juju-0.5-cloudinit.patch
-Patch1:         public_dns.patch
+Patch1:         dns_name_zookeeper_host.patch
 
 BuildArch:      noarch
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
