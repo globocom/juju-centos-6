@@ -2,7 +2,7 @@
 
 Name:           juju
 Version:        0.5
-Release:        5.bzr561%{?dist}
+Release:        6.bzr561%{?dist}
 Summary:        next generation service orchestration system
 
 Group:          System Environment/Orchestration
@@ -13,6 +13,7 @@ Source0:        %{name}-%{version}-bzr561.tar.gz
 
 # CentOSCloudInit class
 Patch0:         juju-0.5-cloudinit.patch
+Patch1:         public_dns.patch
 
 BuildArch:      noarch
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
@@ -38,6 +39,7 @@ protocol.
 %prep
 %setup -q -n %{name}-%{version}-bzr561
 %patch0 -p1
+%patch1 -p0
 
 
 %build
@@ -67,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 01 2012 Andrews Medina <andrewsmedina@gmail.com> - 0.5-6.bzr561
+- Using public instead private dns
+* Mon Jul 31 2012 Andrews Medina <andrewsmedina@gmail.com> - 0.5-5.bzr561
+- Defining user ubuntu on cloudinit
 * Mon Jul 30 2012 Francisco Souza <f@souza.cc> - 0.5-4.bzr561
 - Updated juju package to revision 561
 * Mon Jun 04 2012 Francisco Souza <f@souza.cc> - 0.5-3.bzr531
