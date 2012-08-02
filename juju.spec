@@ -2,7 +2,7 @@
 
 Name:           juju
 Version:        0.5
-Release:        7.bzr561%{?dist}
+Release:        8.bzr561%{?dist}
 Summary:        next generation service orchestration system
 
 Group:          System Environment/Orchestration
@@ -13,7 +13,6 @@ Source0:        %{name}-%{version}-bzr561.tar.gz
 
 # CentOSCloudInit class
 Patch0:         juju-0.5-cloudinit.patch
-Patch1:         dns_name_zookeeper_host.patch
 
 BuildArch:      noarch
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
@@ -39,7 +38,6 @@ protocol.
 %prep
 %setup -q -n %{name}-%{version}-bzr561
 %patch0 -p1
-%patch1 -p0
 
 
 %build
